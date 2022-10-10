@@ -1,11 +1,22 @@
-import objects.*;
+import objects.Cloud;
+import objects.DrawUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class DrawPanel extends JPanel {
+    private Cloud cloud;
     public DrawPanel() {
-
+        cloud = new Cloud(0, 800);
+        Timer t = new Timer(100, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cloud.moveClouds(1);
+                repaint();
+            }
+        });
+        t.start();
     }
 
     @Override
@@ -13,16 +24,16 @@ public class DrawPanel extends JPanel {
         super.paint(gr);
         Graphics2D g = (Graphics2D) gr;
 
-        Background.drawBackground(g);
+        DrawUtils.drawBackground(g);
 
-        Tablo.drawTablo(g);
+        cloud.drawClouds(g);
 
-        Train.drawTrain(g, 4);
+        DrawUtils.drawTablo(g);
 
-        Clouds.drawClouds(g);
+        DrawUtils.drawTrain(g, 4);
 
-        Road.drawRoad(g, 30);
+        DrawUtils.drawRoad(g, 30);
 
-        Man.drawMan(g);
+        DrawUtils.drawMan(g);
     }
 }
